@@ -1,0 +1,77 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html,body{
+    height: 100%;
+    width: 100%;
+}
+
+#main{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background-color: #b5c8fd;
+}
+
+#nav{
+    height:15%;
+    background-color: rgba(29, 76, 230, 0.151);
+}
+
+
+#nav h1{
+    font-size: 60px;
+    color: #5664ff;
+    padding: 20px;
+    text-align: center;
+}
+
+#FavList{
+    /* margin-top: 20%; */
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    height: 50%;
+    width: 50%;
+    padding: 10px;
+    list-style-type: none;
+    transform: translate(-50%,-50%);
+    /* border: 1px solid black; */
+    /* background-color: red; */
+    overflow-y:scroll ;
+}
+
+::-webkit-scrollbar{
+    display: none;
+}
+
+.li{
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #ffff;
+    padding: 12px 20px;
+    /* height: 20px; */
+    font-size: 30px;
+    margin-bottom: 5px;
+    border-radius: 15px;
+    background-color: blue;
+}
+
+.li h5{
+    font-size: 20px;
+    
+}
+
+.li button{
+    color: #ffffff;
+    padding: 8px;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: red;
+}
