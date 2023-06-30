@@ -5,8 +5,11 @@
     var favoriteList = document.querySelector('#favoriteList');
     var search = document.querySelector('#search');
     var span = document.querySelector('#span');
+    var main = document.querySelector('#main')
+    
     var favourite = [];
     var meal;
+    var mealDetails;
 
     //These are eventHandlers 
     search.addEventListener('input', handleInput);
@@ -15,19 +18,22 @@
 
     //Created A handle input function to handel user input
     function handleInput(e) {
+        console.log('handleInputWorking');
         var searchTerm = search.value.trim();
         if (searchTerm !== '') {
             // console.log('working');
             fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=' + searchTerm)
                 .then(response => response.json())
                 .then(data => {
-                    // console.log(data);
+                    console.log(data);
+                    mealDetails = data.meals[0];
+                    console.log(mealDetails);
                     meal = data.meals[0].strMeal;
                     //checking
                     // console.log("meal from handle input :",data.meals[0]);
                     // const mealImage = data.meals[0].strMealThumb;
                     // console.log(mealImage);
-                    // console.log("meal",meal);
+                    console.log("meal",meal);
                     showSuggestion(meal, data);
                 })
             clearSuggestions();
@@ -78,6 +84,7 @@
 
     //Function for show Suggestion below input
     function showSuggestion(meal, data) {
+        console.log('showSuggestion');
         //clearing the suggestionList innerhtml
         suggestionList.innerHTML = '';
 
@@ -126,6 +133,7 @@
 
     //Handle suggestion click 
     function handleSuggestionClick(e) {
+        console.log('handleSuggestionClick');
         // console.log('handleSuggestionClick',meal);
         const clickedItem = e.target;
         const mealData = meal;
@@ -137,7 +145,9 @@
         // console.log("clickedItem.tagName == 'LI'",clickedItem.tagName == 'BUTTON');
 
 
-
+        // console.log(clickedItem.tagName === 'BUTTON');
+        console.log(clickedItem.tagName === 'LI');
+        console.log(clickedItem);
         if (clickedItem.tagName === 'BUTTON') {
 
             // const mealName = clickedItem.childNodes[0];
@@ -154,11 +164,45 @@
 
             showFavorites(meal);
             saveFavorites(meal);
+        }else if(clickedItem.tagName === 'LI'){
+            console.log('meal',meal);
+            console.log(mealDetails);
+            showMealDetails(mealDetails);
         }
     }
 
+    //function to show meal details in home page    
+    function showMealDetails(mealDetails){
+        // console.log('showMealDetails');
+        // console.log(mealDetails);
+        var showMeal = document.createElement('div');
+        showMeal.setAttribute('id','show-meal');
 
-    // showing the gavorites
+        var imageOfMeal = document.createElement('img');
+        // console.log(imageOfMeal);
+        imageOfMeal.src = mealDetails.strMealThumb;
+
+        var text = document.createElement('div');
+        text.classList.add('text');
+
+        var headFour = document.createElement('h4')
+        headFour.innerHTML = mealDetails.strMeal;
+        text.appendChild(headFour);
+
+        var para = document.createElement('p')
+        para.innerHTML = mealDetails.strInstructions;
+        text.appendChild(para);
+
+        showMeal.appendChild(imageOfMeal)
+        showMeal.appendChild(text);
+        main.appendChild(showMeal);
+        search.addEventListener('click',function(e){
+            showMeal.remove();
+        })
+    }
+
+
+    // showing the Favorites
     function showFavorites(mealName) {
         // saveFavorites();
         // console.log('showFavorites',mealName);
@@ -168,7 +212,7 @@
 
             // console.log("favourite[0]", favourite[0]);
 
-            favoriteList.innerHTML = '';
+            // favoriteList.innerHTML = '';
             for (let i = 0; i < favourite.length; i++) {
 
                 // console.log(favourite[i]);
