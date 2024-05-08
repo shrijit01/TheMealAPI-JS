@@ -1,5 +1,5 @@
 ##The Meal API
-Live Link :- [https://shrijit01.github.io/TheMealAPI/](https://shrijit01.github.io/TheMealAPI-JS/)
+Live Link :- https://shrijit01.github.io/TheMealAPI-JS/
 
 #### Features 
 - Home Page
